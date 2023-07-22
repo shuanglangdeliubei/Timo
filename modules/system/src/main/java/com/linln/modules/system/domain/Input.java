@@ -6,8 +6,6 @@ import com.linln.common.utils.StatusUtil;
 import com.linln.component.excel.annotation.Excel;
 import com.linln.component.excel.enums.ExcelType;
 import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.ToString;
 import org.hibernate.annotations.SQLDelete;
 import org.hibernate.annotations.Where;
 import org.springframework.data.annotation.CreatedDate;
@@ -17,8 +15,6 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
-import java.util.HashSet;
-import java.util.Set;
 
 /**
  * @author 小懒虫
@@ -27,12 +23,9 @@ import java.util.Set;
 @Data
 @Entity
 @Table(name = "sys_input")
-@ToString(exclude = {"dept", "roles"})
-@EqualsAndHashCode(exclude = {"dept", "roles"})
 @EntityListeners(AuditingEntityListener.class)
 @SQLDelete(sql = "update sys_input" + StatusUtil.SLICE_DELETE)
 @Where(clause = StatusUtil.NOT_DELETE)
-@Excel("用户数据")
 public class Input implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -52,7 +45,6 @@ public class Input implements Serializable {
     @LastModifiedDate
     @Excel("更新时间")
     private Date updateDate;
+    private Byte status = StatusEnum.OK.getCode();
 
-    @JsonIgnore
-    private Set<Role> roles = new HashSet<>(0);
 }

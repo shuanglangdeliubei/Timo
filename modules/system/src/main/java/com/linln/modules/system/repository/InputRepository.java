@@ -1,7 +1,7 @@
 package com.linln.modules.system.repository;
 
-import com.linln.modules.system.domain.Dept;
 import com.linln.modules.system.domain.Input;
+import com.linln.modules.system.domain.User;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 
 import java.util.List;
@@ -12,20 +12,15 @@ import java.util.List;
  */
 public interface InputRepository extends BaseRepository<Input, Long>, JpaSpecificationExecutor<Input> {
 
-    /**
-     * 根据用户名查询用户数据
-     * @param username 用户名
-     * @return 用户数据
-     */
-    public Input findByUsername(String username);
 
-    /**
-     * 根据用户名查询用户数据,且排查指定ID的用户
-     * @param username 用户名
-     * @param id 排除的用户ID
-     * @return 用户数据
-     */
-    public Input findByUsernameAndIdNot(String username, Long id);
+
+//    /**
+//     * 根据用户名查询用户数据,且排查指定ID的用户
+//     * @param prodname 用户名
+//     * @param id 排除的用户ID
+//     * @return 用户数据
+//     */
+//    public Input findByUsernameAndIdNot(String prodname, Long id);
 
 
     /**
