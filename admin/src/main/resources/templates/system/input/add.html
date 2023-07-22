@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:mo="https://gitee.com/aun/Timo">
+<head th:replace="/common/template :: header(~{::title},~{::link},~{::style})">
+    <link rel="stylesheet" th:href="@{/lib/zTree_v3/css/zTreeStyle/zTreeStyle.css}" type="text/css">
+</head>
+<body>
+<div class="layui-form timo-compile">
+    <form th:action="@{/system/user/save}">
+        <input type="hidden" name="id" th:if="${user}" th:value="${user.id}"/>
+        <div class="layui-form-item">
+            <label class="layui-form-label required">商品图片</label>
+            <div class="layui-input-inline">
+                <input class="layui-input" type="text" name="prodpicture"  placeholder="图片" th:value="${input?.prodpicture}">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label required">商品名称</label>
+            <div class="layui-input-inline">
+                <input class="layui-input" type="text" name="prodname" placeholder="请输入商品名称" th:value="${input?.prodname}">
+            </div>
+        </div>
+        <div class="layui-form-item" th:if="!${user}">
+            <label class="layui-form-label required">商品品牌</label>
+            <div class="layui-input-inline">
+                <input class="layui-input" type="text" name="prodbrand" placeholder="请输入商品品牌" th:value="${input?.prodbrand}">
+            </div>
+        </div>
+        <div class="layui-form-item" th:if="!${user}">
+            <label class="layui-form-label required">现有库存</label>
+            <div class="layui-input-inline">
+                <input class="layui-input" type="text" name="prodinventory" placeholder="请输入现有库存" th:value="${input?.prodinventory}">
+            </div>
+        </div>
+        <div class="layui-form-item timo-finally">
+            <button class="layui-btn ajax-submit"><i class="fa fa-check-circle"></i> 保存</button>
+            <button class="layui-btn btn-secondary close-popup"><i class="fa fa-times-circle"></i> 关闭</button>
+        </div>
+    </form>
+</div>
+<script th:replace="/common/template :: script"></script>
+<script type="text/javascript" th:src="@{/js/plugins/jquery-2.2.4.min.js}"></script>
+<script type="text/javascript" th:src="@{/lib/zTree_v3/js/jquery.ztree.core.min.js}"></script>
+<script type="text/javascript" th:src="@{/js/timoTree.js}"></script>
+<script type="text/javascript">
+    // 树形菜单
+    $.fn.selectTree();
+</script>
+</body>
+</html>

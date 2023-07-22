@@ -1,0 +1,10 @@
+# Project exclude paths
+/admin/target/
+/common/target/
+/component/actionLog/target/
+/component/excel/target/
+/component/fileUpload/target/
+/component/shiro/target/
+/component/thymeleaf/target/
+/devtools/target/
+/modules/system/target/
