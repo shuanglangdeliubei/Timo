@@ -2,7 +2,6 @@ package com.linln.modules.system.service.impl;
 
 import com.linln.common.data.PageSort;
 import com.linln.modules.system.domain.Input;
-import com.linln.modules.system.domain.User;
 import com.linln.modules.system.repository.InputRepository;
 import com.linln.modules.system.service.InputService;
 import org.springframework.beans.factory.annotation.Autowired;

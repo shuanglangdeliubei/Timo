@@ -6,12 +6,12 @@
 </head>
 <body>
 <div class="layui-form timo-compile">
-    <form th:action="@{/system/user/save}">
-        <input type="hidden" name="id" th:if="${user}" th:value="${user.id}"/>
+    <form th:action="@{/system/input/save}">
+        <input type="hidden" name="id" th:if="${input}" th:value="${input.id}"/>
         <div class="layui-form-item">
             <label class="layui-form-label required">商品图片</label>
             <div class="layui-input-inline">
-                <input class="layui-input" type="text" name="prodpicture"  placeholder="图片" th:value="${input?.prodpicture}">
+                <input class="layui-input" type="text" name="prodpicture"  placeholder="请输入商品图片" th:value="${input?.prodpicture}">
             </div>
         </div>
         <div class="layui-form-item">
@@ -20,13 +20,13 @@
                 <input class="layui-input" type="text" name="prodname" placeholder="请输入商品名称" th:value="${input?.prodname}">
             </div>
         </div>
-        <div class="layui-form-item" th:if="!${user}">
+        <div class="layui-form-item">
             <label class="layui-form-label required">商品品牌</label>
             <div class="layui-input-inline">
                 <input class="layui-input" type="text" name="prodbrand" placeholder="请输入商品品牌" th:value="${input?.prodbrand}">
             </div>
         </div>
-        <div class="layui-form-item" th:if="!${user}">
+        <div class="layui-form-item">
             <label class="layui-form-label required">现有库存</label>
             <div class="layui-input-inline">
                 <input class="layui-input" type="text" name="prodinventory" placeholder="请输入现有库存" th:value="${input?.prodinventory}">

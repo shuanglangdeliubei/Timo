@@ -1,12 +1,12 @@
 package com.linln.admin.system.controller;
 
-import com.linln.admin.system.validator.UserValid;
+import com.linln.admin.system.validator.DeptValid;
+import com.linln.admin.system.validator.InputValid;
 import com.linln.common.utils.ResultVoUtil;
 import com.linln.common.vo.ResultVo;
-import com.linln.component.actionLog.action.UserAction;
+import com.linln.component.actionLog.action.SaveAction;
 import com.linln.component.actionLog.annotation.ActionLog;
 import com.linln.component.actionLog.annotation.EntityParam;
-import com.linln.modules.system.domain.Dict;
 import com.linln.modules.system.domain.Input;
 import com.linln.modules.system.service.InputService;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
@@ -51,14 +51,14 @@ public class inputController {
         return "/system/input/index";
     }
 
-//    /**
-//     * 跳转到添加页面
-//     */
-//    @GetMapping("/add")
-//    @RequiresPermissions("system:input:add")
-//    public String toAdd() {
-//        return "/system/input/add";
-//    }
+    /**
+     * 跳转到添加页面
+     */
+    @GetMapping("/add")
+    @RequiresPermissions("system:input:add")
+    public String toAdd() {
+        return "/system/input/add";
+    }
 
 //    /**
 //     * 跳转到编辑页面
@@ -72,14 +72,13 @@ public class inputController {
 
     /**
      * 保存添加/修改的数据
-     * @param valid 验证对象
      * @param input 实体对象
      */
     @PostMapping("/save")
-    @RequiresPermissions({"system:input:add", "system:input:edit"})
+    @RequiresPermissions({"system:input:add"})
     @ResponseBody
-    @ActionLog(key = UserAction.USER_SAVE, action = UserAction.class)
-    public ResultVo save(@Validated UserValid valid, @EntityParam Input input) {
+    @ActionLog(name = "入库管理", message = "字典：${title}", action = SaveAction.class)
+    public ResultVo save(@EntityParam Input input) {
         // 保存数据
         inputService.save(input);
         return ResultVoUtil.SAVE_SUCCESS;
