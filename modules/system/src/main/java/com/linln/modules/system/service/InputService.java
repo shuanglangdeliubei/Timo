@@ -13,6 +13,11 @@ import java.util.List;
  */
 public interface InputService {
 
+    /**
+     * 获取最后一个数据
+     * @return 返回最后一条数据
+     */
+    Input getLastInput(String prodname);
 //    /**
 //     * 根据用户ID查询用户数据
 //     * @param id 用户ID

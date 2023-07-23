@@ -26,6 +26,7 @@ public enum ResultEnum implements ResultInterface {
     USER_OLD_PWD_ERROR(404, "原来密码不正确"),
     USER_NAME_PWD_NULL(405, "用户名和密码不能为空"),
     USER_CAPTCHA_ERROR(406, "验证码错误"),
+    INPUT_CAPTCHA_ERROR(407, "库存不能小于0"),
 
     /**
      * 角色问题
@@ -57,6 +58,7 @@ public enum ResultEnum implements ResultInterface {
     NO_ADMINROLE_STATUS(501, "不能修改管理员角色状态"),
 
     ;
+
 
     private Integer code;
 

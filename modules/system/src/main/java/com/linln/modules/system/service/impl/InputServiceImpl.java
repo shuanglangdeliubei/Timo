@@ -1,7 +1,9 @@
 package com.linln.modules.system.service.impl;
 
 import com.linln.common.data.PageSort;
+import com.linln.modules.system.domain.Dict;
 import com.linln.modules.system.domain.Input;
+import com.linln.modules.system.domain.User;
 import com.linln.modules.system.repository.InputRepository;
 import com.linln.modules.system.service.InputService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,6 +26,19 @@ public class InputServiceImpl implements InputService {
     @Autowired
     private InputRepository inputRepository;
 
+    @Autowired
+    public InputServiceImpl(InputRepository inputRepository) {
+        this.inputRepository = inputRepository;
+    }
+
+    /**
+     * 获取最后一个数据
+     * @return 返回最后一条数据
+     */
+
+    public Input getLastInput(String prodname) {
+        return inputRepository.findFirstByProdnameOrderByCreateDateDesc(prodname);
+    }
 //    /**
 //     * 根据用户ID获取用户信息
 //     * @param id 用户ID
@@ -32,7 +47,6 @@ public class InputServiceImpl implements InputService {
 //    public Input getById(Long id) {
 //        return inputRepository.findById(id).orElse(null);
 //    }
-
 
 
     /**

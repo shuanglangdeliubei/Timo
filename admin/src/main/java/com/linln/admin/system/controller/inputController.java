@@ -2,6 +2,8 @@ package com.linln.admin.system.controller;
 
 import com.linln.admin.system.validator.DeptValid;
 import com.linln.admin.system.validator.InputValid;
+import com.linln.common.enums.ResultEnum;
+import com.linln.common.exception.ResultException;
 import com.linln.common.utils.ResultVoUtil;
 import com.linln.common.vo.ResultVo;
 import com.linln.component.actionLog.action.SaveAction;
@@ -60,6 +62,7 @@ public class inputController {
         return "/system/input/add";
     }
 
+
 //    /**
 //     * 跳转到编辑页面
 //     */
@@ -75,14 +78,21 @@ public class inputController {
      * @param input 实体对象
      */
     @PostMapping("/save")
-    @RequiresPermissions({"system:input:add"})
+    @RequiresPermissions({"system:input:add","system:input:remove"})
     @ResponseBody
     @ActionLog(name = "入库管理", message = "字典：${title}", action = SaveAction.class)
     public ResultVo save(@EntityParam Input input) {
+
+        Input lastInput = inputService.getLastInput(input.getProdname());
+        Integer res=Integer.parseInt(lastInput.getProdinventory())+Integer.parseInt(input.getProdinventory());
+        if(res<0){
+            throw new ResultException(ResultEnum.INPUT_CAPTCHA_ERROR);
+        }
+        input.setProdinventory(res.toString());
+
         // 保存数据
         inputService.save(input);
         return ResultVoUtil.SAVE_SUCCESS;
     }
-
 
 }

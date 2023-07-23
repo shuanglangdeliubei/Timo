@@ -22,7 +22,7 @@ public interface InputRepository extends BaseRepository<Input, Long>, JpaSpecifi
 //     */
 //    public Input findByUsernameAndIdNot(String prodname, Long id);
 
-
+    Input findFirstByProdnameOrderByCreateDateDesc(String prodname);
     /**
      * 删除多条数据
      * @param ids ID列表
