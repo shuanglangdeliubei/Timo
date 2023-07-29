@@ -7,6 +7,7 @@ import com.linln.component.fileUpload.FileUpload;
 import com.linln.component.fileUpload.enums.UploadResultEnum;
 import com.linln.modules.system.domain.Upload;
 import com.linln.modules.system.service.UploadService;
+import com.linln.modules.system.service.impl.UploadedFileService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -26,6 +27,9 @@ public class UploadController {
 
     @Autowired
     private UploadService uploadService;
+
+    @Autowired
+    private UploadedFileService uploadedFileService;
 
     /**
      * 上传web格式图片
@@ -57,6 +61,7 @@ public class UploadController {
         } catch (IOException | NoSuchAlgorithmException e) {
             return ResultVoUtil.error("上传头像失败");
         }
+
     }
 
     /**
@@ -83,6 +88,12 @@ public class UploadController {
         FileUpload.transferTo(multipartFile, upload);
         // 将文件信息保存到数据库中
         uploadService.save(upload);
+        // 处理上传的文件...
+        String uploadedFileName = multipartFile.getOriginalFilename();
+
+        // 保存上传图片的文件名到共享服务
+        uploadedFileService.setUploadedFileName(uploadedFileName);
+
         return ResultVoUtil.success(upload);
     }
 

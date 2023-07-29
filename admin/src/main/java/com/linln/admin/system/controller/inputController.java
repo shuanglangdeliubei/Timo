@@ -10,7 +10,9 @@ import com.linln.component.actionLog.action.SaveAction;
 import com.linln.component.actionLog.annotation.ActionLog;
 import com.linln.component.actionLog.annotation.EntityParam;
 import com.linln.modules.system.domain.Input;
+import com.linln.modules.system.domain.Upload;
 import com.linln.modules.system.service.InputService;
+import com.linln.modules.system.service.impl.UploadedFileService;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Example;
@@ -32,6 +34,8 @@ public class inputController {
     @Autowired
     private InputService inputService;
 
+    @Autowired
+    private UploadedFileService uploadedFileService;
     /**
      * 列表页面
      */
@@ -81,10 +85,19 @@ public class inputController {
     @RequiresPermissions({"system:input:add","system:input:remove"})
     @ResponseBody
     @ActionLog(name = "入库管理", message = "字典：${title}", action = SaveAction.class)
-    public ResultVo save(@EntityParam Input input) {
+    public ResultVo save(@EntityParam Input input,@EntityParam Upload upload) {
+        Integer res=0;
+        // 获取上传图片的文件名
+        String uploadedFileName = uploadedFileService.getUploadedFileName();
+        input.setProdpicture(uploadedFileName);
+        System.out.printf("图片名称: %s",uploadedFileName);
 
         Input lastInput = inputService.getLastInput(input.getProdname());
-        Integer res=Integer.parseInt(lastInput.getProdinventory())+Integer.parseInt(input.getProdinventory());
+        if(lastInput!=null) {
+            res = Integer.parseInt(lastInput.getProdinventory()) + Integer.parseInt(input.getProdinventory());
+        }else {
+            res=Integer.parseInt(input.getProdinventory());
+        }
         if(res<0){
             throw new ResultException(ResultEnum.INPUT_CAPTCHA_ERROR);
         }
